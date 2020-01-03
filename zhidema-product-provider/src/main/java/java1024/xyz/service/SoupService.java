@@ -1,8 +1,12 @@
 package java1024.xyz.service;
 
+import java1024.xyz.vo.Product;
+
+import java.util.List;
+
 public interface SoupService {
 
-    void soupTaobao();
+    List<Product> soupTaobaoByKeyWord(String keyword);
 
-    void soupTaobaoDetail();
+    Product soupTaobaoDetailById(Long number);
 }

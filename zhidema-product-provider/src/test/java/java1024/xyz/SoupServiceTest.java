@@ -1,6 +1,9 @@
 package java1024.xyz;
 
 import java1024.xyz.service.impl.SoupServiceImpl;
+import java1024.xyz.util.UrlUtils;
+import java1024.xyz.vo.Product;
+import java1024.xyz.vo.UrlData;
 import org.junit.Test;
 
 /**
@@ -11,15 +14,26 @@ import org.junit.Test;
  */
 public class SoupServiceTest {
 
+    //Long productId = 20209375545l;
+    Long productId = 604433373792l;
+    String tmallUrlPre = "https://detail.tmall.com/item.htm?id=";
+
     @Test
     public void testSoupTaobao() {
         SoupServiceImpl soupService = new SoupServiceImpl();
-        soupService.soupTaobao();
+
     }
 
     @Test
     public void testSoupTaoBaoDetail() {
+        String url = tmallUrlPre+productId;
+        System.out.println("url = " + url);
+        UrlData urlData = UrlUtils.analyseUrl(url);
+        if (urlData.getStatus() != 1)
+            System.out.println(" url 不合法 ");
         SoupServiceImpl soupService = new SoupServiceImpl();
-        soupService.soupTaobaoDetail();
+        Product product = soupService.soupTaobaoDetailById(urlData.getNumber());
+        System.out.println("product = " + product);
+
     }
 }
