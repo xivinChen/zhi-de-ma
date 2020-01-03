@@ -1,0 +1,4 @@
+# Project exclude paths
+/zhidema-product-provider/target/
+*.iml
+.idea

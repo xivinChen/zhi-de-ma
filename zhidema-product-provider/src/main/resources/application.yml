@@ -1,0 +1,35 @@
+server:
+  port: 5100
+mybatis:
+  mapper-locations:
+    - classpath:mapping/*.xml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zhidema?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123zxc
+  application:
+    name: zhidema-product-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+        <img src="http://bs-follow.oss-cn-shenzhen.aliyuncs.com/////2019/08/22/robot.png" alt="LOGO" style="width: 30px; height: 30px; border-radius: 50%;">
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123zxc
+    database: 0
+    lettuce:
+      pool:
+        max-active: 32
+        max-wait: 300ms
+        max-idle: 16
+        min-idle: 8
+
+
+
