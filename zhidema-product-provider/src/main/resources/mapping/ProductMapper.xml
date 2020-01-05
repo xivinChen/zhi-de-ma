@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java1024.xyz.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="java1024.xyz.vo.Product">
+
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="number" property="number" jdbcType="BIGINT" />
+      <result column="price" property="price" jdbcType="REAL" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="describe" property="describe" jdbcType="VARCHAR" />
+      <result column="status" property="status" jdbcType="TINYINT" />
+      <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+      <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `number`, price, user_id, platform_id, title, `describe`, status, created_at, updated_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="java1024.xyz.vo.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product (`number`, price, user_id,
+      platform_id, title, `describe`,
+      status, created_at, updated_at
+      )
+    values (#{number,jdbcType=BIGINT}, #{price,jdbcType=REAL}, #{userId,jdbcType=INTEGER}, 
+      #{platformId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="java1024.xyz.vo.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="platformId != null">
+        platform_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="describe != null">
+        `describe`,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="number != null">
+        #{number,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="platformId != null">
+        #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="java1024.xyz.vo.Product">
+    update product
+    <set>
+      <if test="number != null">
+        `number` = #{number,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="platformId != null">
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        `describe` = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="java1024.xyz.vo.Product">
+    update product
+    set `number` = #{number,jdbcType=BIGINT},
+      price = #{price,jdbcType=REAL},
+      user_id = #{userId,jdbcType=INTEGER},
+      platform_id = #{platformId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getByPlatfromAndNumber" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where  `number` = #{number,jdbcType=BIGINT}
+    and platform_id = #{platformId,jdbcType=INTEGER}
+
+    order by created_at desc
+  </select>
+
+  <select id="checkExistByNumberAndPrice" resultType="java.lang.Integer">
+        select exists (
+        select 1 from product where number = #{number,jdbcType=BIGINT} and price =#{price,jdbcType=FLOAT} limit 1
+        )
+    </select>
+</mapper>

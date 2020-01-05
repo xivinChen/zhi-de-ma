@@ -6,19 +6,16 @@ mybatis:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/zhidema?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zhidema?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 123zxc
+    password:
   application:
-    name: zhidema-product-provider
+    name: zhidema-provider
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-
-        <img src="http://bs-follow.oss-cn-shenzhen.aliyuncs.com/////2019/08/22/robot.png" alt="LOGO" style="width: 30px; height: 30px; border-radius: 50%;">
-
   redis:
     host: 127.0.0.1
     port: 6379

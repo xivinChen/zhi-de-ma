@@ -1,0 +1,33 @@
+server:
+  port: 5000
+spring:
+  application:
+    name: zhidema-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  main:
+    allow-bean-definition-overriding: true
+
+feign:
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+  compression:
+    request:
+      enabled: true
+      mime-types: # 可以被压缩的类型
+        - text/xml
+        - application/xml
+        - application/json
+      min-request-size: 2048
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
+

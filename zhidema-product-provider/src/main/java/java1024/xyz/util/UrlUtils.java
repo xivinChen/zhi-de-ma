@@ -63,7 +63,7 @@ public class UrlUtils {
     public static void main(String[] args) {
         String testUrl = "https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.8.27832a99AfoD5W&id=604433373792&skuId=4233630160968&user_id=1776477331&cat_id=2&is_b=1&rn=2eff85a6a504024ee62222a0045d9ded";
         String testUrl2 =  "https://detail.tmall.com/item.htm?id=604433373792";
-        UrlData urlData = analyseUrl(testUrl2);
+        UrlData urlData = analyseUrl(testUrl);
         System.out.println("urlData = " + urlData);
 
         String testUrlEr1 =  "https://detail.tmall.com/item.htm?id=604433373792";
