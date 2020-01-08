@@ -8,5 +8,9 @@ public interface SoupService {
 
     List<Product> soupTaobaoByKeyWord(String keyword);
 
+    Product soupTmallDetailById(Long number);
+
     Product soupTaobaoDetailById(Long number);
+
+    Product soupJDDetailById(Long number);
 }

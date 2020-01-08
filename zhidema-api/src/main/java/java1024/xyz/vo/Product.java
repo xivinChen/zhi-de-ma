@@ -1,5 +1,6 @@
 package java1024.xyz.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,6 +23,8 @@ public class Product implements Serializable {
 
     private Integer userId;
 
+    private String url;
+
     private Integer platformId;
 
     private String title;
@@ -30,6 +33,7 @@ public class Product implements Serializable {
 
     private Integer status;
 
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss")
     private Timestamp createdAt;
 
     private Timestamp updatedAt;

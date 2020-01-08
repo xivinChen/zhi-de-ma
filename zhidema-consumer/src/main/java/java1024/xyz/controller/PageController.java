@@ -9,20 +9,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PageController {
 
-    @RequestMapping(value = "/{page}.html",method = RequestMethod.GET)
+    /*@RequestMapping(value = "/{page}.html",method = RequestMethod.GET)
     public ModelAndView page(@PathVariable("page") String page) {
 
         System.out.println("进入 page");
         ModelAndView modelAndView = new ModelAndView(page);
         return modelAndView;
 
-    }
+    }*/
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public ModelAndView index() {
 
         System.out.println("/进入index");
-        ModelAndView modelAndView = new ModelAndView("layuiAdmin");
+        ModelAndView modelAndView = new ModelAndView("home");
         return modelAndView;
 
     }

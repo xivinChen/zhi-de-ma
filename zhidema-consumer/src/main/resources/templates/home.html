@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>值得吗 价格记录网站</title>
+		<link rel="stylesheet" href="/css/layui.css">
+		<link rel="stylesheet" href="/css/home.css">
+		<script src="/js/layui.js"></script>
+		<script src="/js/echarts.min.js"></script>
+		<script src="/js/jquery.js"></script>
+	</head>
+	<body>
+		
+		<!-- header -->
+		<div class="layui-container header" style="border: 2px #000000 solid;">  
+			<!-- <div class="layui-col-md12"> -->
+			    <!-- <h5>值得吗，价格记录平台！识别伪促销活动，值得你拥有！</h1> -->
+			    <div class="layui-row layui-bg-red" style="margin-top: 10px;" >
+					<div class="layui-col-md3">
+					  &nbsp;
+					</div>
+					<div class="layui-col-md2"></div>
+					<div class="layui-col-md6">
+						<form class="layui-form" id="searchForm" action="">
+							<div class="layui-form-item">
+								<div class="layui-input-block">
+									<input type="text" name="url" required  lay-verify="required" placeholder="请输入商品url" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="layui-col-md1">
+						<button id="searchBtn" class="layui-btn layui-btn-danger"  lay-filter="formDemo">识别</button>
+					</div>
+			    </div>
+			  
+		    <!-- </div> -->
+		</div>
+		
+		<!-- body product -->
+		<div class="layui-container product">
+			<!-- product images -->
+			<div class="layui-col-md3 product-img"></div>
+			
+			<!-- product info -->
+			<div class="layui-col-md9 product-info">
+				<form class="layui-form" id="recordForm" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">商品id</label>
+						<div class="layui-input-inline">
+							<input type="number" disabled="true" name="number" id="number" placeholder="输入商品url后确认id是否正确" class="layui-input" />
+						</div>
+						<label class="layui-form-label">商品价格</label>
+						<div class="layui-input-inline">
+							<input type="number" name="price" placeholder="请手动输入当前价格" class="layui-input" />
+						</div>
+					
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">商品标题</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" id="title" placeholder="输入商品url后确认标题是否正确" class="layui-input" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<input type="number" hidden="true" id="platformId" name="platformId" >
+					</div>
+
+					
+					<div class="layui-form-item layui-form-text">
+					    <label class="layui-form-label">商品详情</label>
+					    <div class="layui-input-block">
+					      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					</div>
+					
+					<div class="layui-form-item">
+					    <div class="layui-input-block">
+					      <button class="layui-btn" lay-submit lay-filter="formDemo">提交当前价格记录</button>
+					      <!-- <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
+					    </div>
+					</div>
+					  
+				</form>
+			</div>
+		</div>
+		
+		<!-- body record -->
+		<div class="layui-container record">
+			<!-- echart line  -->
+			<div class="layui-col-md12 record-line" id = "record-line">
+				
+			</div>
+		</div>
+		
+		<!-- footer -->
+		<div class="layui-container footer">
+			
+			<div class="layui-col-md12"></div>
+			
+		</div>
+		
+	</body>
+	
+	<script>
+	
+	var dateList = [];
+	        var priceList = [];
+	        var getProductListByNumber = function () {
+	
+	            $.ajax({
+					type: 'get',
+					url: '/product/search',
+					async: false, // 不可异步，要保证同步
+					data: {
+	                    platformId: 3,
+	                    number: 100002718283
+					},
+	                success: function (data) {
+					    console.log(data)
+	                    var products = data.data;
+	                    console.log(products);
+	                    for (var i=0;i<products.length;i++) {
+	
+	                        dateList.push(products[i]['createdAt']);
+	                        priceList.push(products[i]['price'])
+	                    }
+	
+	                }
+				});
+	
+	        }
+			getProductListByNumber();
+	
+	//alert('hello')
+	var recordLine = echarts.init(document.getElementById('record-line'));
+	var lineOption = {
+		    title: {
+		        text: '价格历史记录'
+		    },
+		    tooltip: {},
+		    legend: {
+		        data:['价格']
+		    },
+		    xAxis: {
+		        //data: ["1月","三月","五月","7月"]
+				data: dateList
+		    },
+		    yAxis: {},
+		    series: [{
+				type: 'line',
+				//data: [20,5,10,36,20,10]
+				data: priceList
+			}]
+		};
+		//填充折线图
+		recordLine.setOption(lineOption);
+
+	$('#searchBtn').click(function(e) {
+		//alert($('#searchForm').serialize());
+		$.ajax({
+			//几个参数需要注意一下
+			type: "POST",//方法类型
+			dataType: "json",//预期服务器返回的数据类型
+			//contentType: "application/json;charsetset=UTF-8",
+			url: "/soup/one" ,//url
+			data: $('#searchForm').serialize(),
+
+			success: function (data) {
+				if (data.status == 200) {
+					//alert(data.msg)
+					$('#number').val(data.data.number);
+					$('#title').val(data.data.title);
+					$('#platformId').val(data.data.platformId)
+				}
+				else {
+					alert(data.msg)
+				}
+
+			},
+			error : function() {
+				alert("服务器繁忙……请稍后再试试！")
+				//alert("网络出异常！");
+			}
+		});
+		//document.location.href = "main.html";
+	});
+		
+	</script>
+</html>
