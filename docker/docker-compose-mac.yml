@@ -1,0 +1,26 @@
+version: "3"
+services:
+  springboot-layui:
+    image: maven:3-jdk-8
+    container_name: zhidema-consumer
+    #hostname: springboot-layui
+    #network_mode: host
+    ports:
+      - "5000:5000"
+    volumes:
+      - /Users/admin2/Downloads/zhi-de-ma:/Users/admin2/Downloads/zhi-de-ma
+      - /Users/admin2/.m2:/root/.m2  # maven仓库路径
+    working_dir: /Users/admin2/Downloads/zhi-de-ma/zhidema-consumer
+    command: ["/bin/sh", "-c", "mvn clean spring-boot:run"]
+  zhidema-product-provider:
+    image: maven:3-jdk-8
+    container_name: zhidema-product-provider
+    #hostname: springboot-layui
+    #network_mode: host
+    ports:
+      - "5100:5100"
+    volumes:
+      - /Users/admin2/Downloads/zhi-de-ma:/Users/admin2/Downloads/zhi-de-ma
+      - /Users/admin2/.m2:/root/.m2
+    working_dir: /Users/admin2/Downloads/zhi-de-ma/zhidema-product-provider
+    command: ["/bin/sh", "-c", "mvn clean spring-boot:run"]

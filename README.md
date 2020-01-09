@@ -52,3 +52,8 @@
 ### 4）浏览器访问 localhost:5000/ 可进入首页，复制一个商品url即可测试。
 
 ---
+
+## 7.docker启动
+> 进入docker文件夹，输入 docker-compose up 即可启动两个工程，但数据库和注册中心要手动创建和手动启动,window系统需要修改 maven仓库路径
+
+
