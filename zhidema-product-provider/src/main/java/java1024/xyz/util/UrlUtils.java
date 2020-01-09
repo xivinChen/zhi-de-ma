@@ -17,6 +17,7 @@ public class UrlUtils {
         UrlData urlData = new UrlData();
         try {
 
+            // 判空
             if (StringUtils.isEmpty(url)) {
                 urlData.setStatus(0);
                 return urlData;
@@ -27,6 +28,13 @@ public class UrlUtils {
 
                 urlData.setPlatform(UrlConst.tmallUrlSign);
                 String numberStr = "";
+
+                /**
+                 * 切分根路径 和 参数 如：
+                 * https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.8.27832a99AfoD5W&id=604433373792
+                 * 在 ？问号的地方切成两部分
+                 *
+                 */
                 String[] roudAndParams = url.split("\\?");
 
                 if (roudAndParams.length < 2) {
@@ -34,6 +42,9 @@ public class UrlUtils {
                     return urlData;
                 }
 
+                /**
+                 * 获取 参数字符串，通过&切开多个参数，提取以 id=开头的即 商品id
+                 */
                 String paramStr =  roudAndParams[1];
                 String[] params = paramStr.split("&");
                 for (int i = 0;i < params.length; i++) {
@@ -53,10 +64,19 @@ public class UrlUtils {
                 urlData.setNumber(number);
                 return urlData;
 
-            } else if (url.contains(UrlConst.taobaoUrlSign)) {
+            }
+            //淘宝
+            else if (url.contains(UrlConst.taobaoUrlSign)) {
 
                 urlData.setPlatform(UrlConst.taobaoUrlSign);
                 String numberStr = "";
+
+                /**
+                 * 切分根路径 和 参数 如：
+                 * https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.8.27832a99AfoD5W&id=604433373792
+                 * 在 ？问号的地方切成两部分
+                 *
+                 */
                 String[] roudAndParams = url.split("\\?");
 
                 if (roudAndParams.length < 2) {
@@ -64,6 +84,9 @@ public class UrlUtils {
                     return urlData;
                 }
 
+                /**
+                 * 获取 参数字符串，通过&切开多个参数，提取以 id=开头的即 商品id
+                 */
                 String paramStr =  roudAndParams[1];
                 String[] params = paramStr.split("&");
                 for (int i = 0;i < params.length; i++) {
@@ -82,7 +105,9 @@ public class UrlUtils {
                 urlData.setStatus(1);
                 urlData.setNumber(number);
                 return urlData;
-            }else if (url.contains(UrlConst.jingdongUrlSign)) {
+            }
+            //其他
+            else if (url.contains(UrlConst.jingdongUrlSign)) {
 
                 urlData.setPlatform(UrlConst.jingdongUrlSign);
                 String numberStr = "";
@@ -120,14 +145,14 @@ public class UrlUtils {
     }
 
     public static void main(String[] args) {
-       /* String testUrl = "https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.8.27832a99AfoD5W&id=604433373792&skuId=4233630160968&user_id=1776477331&cat_id=2&is_b=1&rn=2eff85a6a504024ee62222a0045d9ded";
-        String testUrl2 =  "https://detail.tmall.com/item.htm?id=604433373792";
-        UrlData urlData = analyseUrl(testUrl);
-        System.out.println("urlData = " + urlData);
 
-        String testUrlEr1 =  "https://detail.tmall.com/item.htm?id=604433373792";
-        UrlData urlData1 = analyseUrl(testUrlEr1);
-        System.out.println("urlData1 = " + urlData1);*/
+        String tmallUrl = "https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.8.27832a99AfoD5W&id=604433373792&skuId=4233630160968&user_id=1776477331&cat_id=2&is_b=1&rn=2eff85a6a504024ee62222a0045d9ded";
+        UrlData tmall = analyseUrl(tmallUrl);
+        System.out.println("tmall = " + tmall);
+
+        String taobaoUrl =  "https://s.taobao.com/search?spm=a230r.1.14.7.ade0695abTrJ6k&type=samestyle&app=i2i&rec_type=1&uniqpid=69915374&nid=604733501729";
+        UrlData taobao = analyseUrl(taobaoUrl);
+        System.out.println("taobao = " + taobao);
 
         String jdUrl = "https://item.jd.com/100004250098.html#none";
         UrlData jd = analyseUrl(jdUrl);
