@@ -12,7 +12,7 @@
 	<body>
 		
 		<!-- header -->
-		<div class="layui-container header" style="border: 2px #000000 solid;">  
+		<div class="layui-container header" style="border: 1px red solid;">
 			<!-- <div class="layui-col-md12"> -->
 			    <!-- <h5>值得吗，价格记录平台！识别伪促销活动，值得你拥有！</h1> -->
 			    <div class="layui-row layui-bg-red" style="margin-top: 10px;" >
@@ -40,7 +40,9 @@
 		<!-- body product -->
 		<div class="layui-container product">
 			<!-- product images -->
-			<div class="layui-col-md3 product-img"></div>
+			<div class="layui-col-md3 product-img">
+				<img style="border:3px yellow solid" src="/img/bugProductImage.jpg" width="98%" height="98%" />
+			</div>
 			
 			<!-- product info -->
 			<div class="layui-col-md9 product-info">
@@ -48,7 +50,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">商品id</label>
 						<div class="layui-input-inline">
-							<input type="number" disabled="true" name="number" id="number" placeholder="输入商品url后确认id是否正确" class="layui-input" />
+							<input type="number" disabled="true" name="number" id="number" placeholder="输入商品url后识别id" class="layui-input" />
 						</div>
 						<label class="layui-form-label">商品价格</label>
 						<div class="layui-input-inline">
@@ -59,7 +61,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">商品标题</label>
 						<div class="layui-input-block">
-							<input type="text" name="title" id="title" placeholder="输入商品url后确认标题是否正确" class="layui-input" />
+							<input type="text" name="title" id="title" placeholder="输入商品url识别认标题" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -82,7 +84,7 @@
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" id="recordBtn" >提交当前价格记录</button>
+						<button class="layui-btn-warm" id="recordBtn" >提交当前价格记录</button>
 						<!-- <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
 					</div>
 				</div>
@@ -100,7 +102,20 @@
 		<!-- footer -->
 		<div class="layui-container footer">
 			
-			<div class="layui-col-md12"></div>
+			<div class="layui-col-md12">
+				<div class="layui-footer" align="center">
+					<!-- 底部固定区域 -->
+					<p>
+						<a class="footer-line-a" target="_blank" href="http://www.java1024.xyz">java1024家园</a>
+						<a class="footer-line-a" target="_blank" href="https://www.tmall.com">天猫</a>
+						<a class="footer-line-a" target="_blank" href="https://www.taobao.com">淘宝</a>
+						<a class="footer-line-a" target="_blank" href="https://www.jd.com">京东</a>
+					</p>
+					<hr class="layui-bg-red">
+					<p>Copyright ©2020 www.java1024.xyz - 个人工作室 备案号：粤 12345678</p>
+
+				</div>
+			</div>
 			
 		</div>
 		
@@ -170,6 +185,9 @@
 
 	$('#searchBtn').click(function(e) {
 		//alert($('#searchForm').serialize());
+		if ($('#number').val() == "") {
+			$("#number").attr("placeholder","请输入url识别id");
+		}
 		$.ajax({
 			//几个参数需要注意一下
 			type: "POST",//方法类型
@@ -203,6 +221,14 @@
 
 	$('#recordBtn').click(function(e) {
 		//alert($('#searchForm').serialize());
+		if ($('#number').val() == "" || $('#title').val() == "") {
+			alert('请输入 url 识别商品')
+			return ;
+		}
+		if ($('#price').valueOf() == "") {
+			alert('请输入价格');
+			return;
+		}
 		var paramdata = {
 			number: $('#number').val(),
 			price: $('#price').val(),
@@ -222,10 +248,6 @@
 				if (data.status == 200) {
 					//alert(data.msg);
 					getProductListByNumber();
-					//alert(data.data.length)
-					/*$('#number').val(data.data.number);
-					$('#title').val(data.data.title);
-					$('#platformId').val(data.data.platformId)*/
 				}
 				else {
 					alert(data.msg)

@@ -1,19 +1,20 @@
+.header{
+	background-color: red;
+}
 .product {
 	padding-top: 10px;
-	height: 400px;
-	background-color: #007DDB;
+	height: 380px;
+	background-color: red;
 }
 .product-img {
 	float: left;
-	
 	height: 98%;
-	border: #000000 1px solid;
-	background-color: yellow;
+
 }
 .product-info {
 	float: right;
 	height: 98%;
-	
+
 }
 .header {
 	margin-top: 20px;
@@ -30,5 +31,10 @@
 
 .footer {
 	height: 100px;
-	background-color: gray;
+	padding-top: 20px;
+	background-color: #DDDDDD;
+
+}
+.footer-line-a {
+	margin: 5px 5px;
 }
