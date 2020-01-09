@@ -133,4 +133,11 @@
     <include refid="Base_Column_List" />
     from platform
   </select>
+
+  <select id="getBySign" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from platform
+    where sign = #{sign,jdbcType=VARCHAR} limit 1
+  </select>
 </mapper>

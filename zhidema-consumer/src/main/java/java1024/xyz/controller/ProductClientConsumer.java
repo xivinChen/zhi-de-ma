@@ -16,6 +16,7 @@ public class ProductClientConsumer {
 
     @PostMapping("/all")
     public Result all(@RequestBody Product product) {
+        System.out.println("product = " + product);
         return productClientService.all(product);
     }
 

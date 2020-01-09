@@ -11,5 +11,6 @@ public interface PlatformService {
     Result<Integer> update(Platform platform);
     Result<Platform> get(int id);
     Result<List<Platform>> findAll();
+    Result<Platform> getBySign(String sign);
 
 }

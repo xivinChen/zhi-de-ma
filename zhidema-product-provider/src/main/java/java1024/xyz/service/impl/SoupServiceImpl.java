@@ -1,7 +1,10 @@
 package java1024.xyz.service.impl;
 
+import java1024.xyz.service.PlatformService;
 import java1024.xyz.service.SoupService;
+import java1024.xyz.vo.Platform;
 import java1024.xyz.vo.Product;
+import java1024.xyz.vo.Result;
 import java1024.xyz.vo.UrlConst;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -17,6 +20,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,6 +31,9 @@ import java.util.List;
  */
 @Service
 public class SoupServiceImpl implements SoupService {
+
+    @Resource
+    private PlatformService platformService;
 
 
     public List<Product> soupTaobaoByKeyWord(String keyword) {
@@ -129,6 +136,12 @@ public class SoupServiceImpl implements SoupService {
                     //for (Element item : ulList) {
                         // 商品ID
                     try {
+                        Result<Platform> bySign = platformService.getBySign(UrlConst.tmallUrlSign);
+                        Platform platform = bySign.getData();
+                        if (platform != null) {
+                            product.setPlatformId(platform.getId());
+                            product.setPlatform(platform);
+                        }
                         product.setNumber(number);
                         product.setPlatformId(1);
                         //String id = item.select("div[class='tb-detail-hd']").select("h1").attr("data-spm");
@@ -197,6 +210,12 @@ public class SoupServiceImpl implements SoupService {
                     //for (Element item : ulList) {
                     // 商品ID
                     try {
+                        Result<Platform> bySign = platformService.getBySign(UrlConst.taobaoUrlSign);
+                        Platform platform = bySign.getData();
+                        if (platform != null) {
+                            product.setPlatformId(platform.getId());
+                            product.setPlatform(platform);
+                        }
                         product.setNumber(number);
                         product.setPlatformId(2);
                         //String id = item.select("div[class='tb-detail-hd']").select("h1").attr("data-spm");
@@ -263,6 +282,12 @@ public class SoupServiceImpl implements SoupService {
                     //for (Element item : ulList) {
                     // 商品ID
                     try {
+                        Result<Platform> bySign = platformService.getBySign(UrlConst.jingdongUrlSign);
+                        Platform platform = bySign.getData();
+                        if (platform != null) {
+                            product.setPlatformId(platform.getId());
+                            product.setPlatform(platform);
+                        }
                         product.setNumber(number);
                         product.setPlatformId(3);
                         //String id = item.select("div[class='tb-detail-hd']").select("h1").attr("data-spm");

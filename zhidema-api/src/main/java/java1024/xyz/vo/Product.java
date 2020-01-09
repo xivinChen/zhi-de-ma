@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author xivin
@@ -37,5 +38,7 @@ public class Product implements Serializable {
     private Timestamp createdAt;
 
     private Timestamp updatedAt;
+
+    private Platform platform;
 
 }

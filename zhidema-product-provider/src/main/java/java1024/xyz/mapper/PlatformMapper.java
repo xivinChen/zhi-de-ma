@@ -13,6 +13,8 @@ public interface PlatformMapper {
 
     Platform selectByPrimaryKey(Integer id);
 
+    Platform getBySign(String sign);
+
     int updateByPrimaryKeySelective(Platform record);
 
     int updateByPrimaryKey(Platform record);

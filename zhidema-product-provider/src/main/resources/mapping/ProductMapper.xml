@@ -159,7 +159,7 @@
     where  `number` = #{number,jdbcType=BIGINT}
     and platform_id = #{platformId,jdbcType=INTEGER}
 
-    order by created_at desc
+    order by created_at asc
   </select>
 
   <select id="checkExistByNumberAndPrice" resultType="java.lang.Integer">

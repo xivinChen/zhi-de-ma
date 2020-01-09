@@ -40,4 +40,9 @@ public class PlatformServiceImpl implements PlatformService {
     public Result<List<Platform>> findAll() {
         return new Result<>(platformMapper.findAll());
     }
+
+    @Override
+    public Result<Platform> getBySign(String sign) {
+        return new Result<>(platformMapper.getBySign(sign));
+    }
 }

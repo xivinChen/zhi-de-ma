@@ -50,3 +50,11 @@ CREATE TABLE `platform` (
   `updated_at` timestamp not NULL DEFAULT  '2019-09-04 11:44:35' ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+BEGIN;
+INSERT INTO `platform` VALUES (2, '天猫', 'https://detail.tmall.com/item.htm', 'https://list.tmall.com/search_product.htm', 'tmall.com', 1, '2020-01-07 11:28:07', '2020-01-07 11:28:07');
+INSERT INTO `platform` VALUES (3, '淘宝 ', 'https://item.taobao.com/item.htm?id=', 'https://s.taobao.com/search?q=', 'taobao.com', 1, '2020-01-07 16:23:04', '2020-01-07 16:23:04');
+INSERT INTO `platform` VALUES (4, '京东', 'https://item.jd.com/', 'https://search.jd.com/Search?keyword=', 'jd.com', 1, '2020-01-07 08:51:05', '2020-01-09 03:52:41');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
